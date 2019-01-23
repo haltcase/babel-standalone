@@ -19,9 +19,9 @@
     "dist"
   ],
   "scripts": {
-    "update": "node update.js",
+    "update": "node --no-warnings update.js",
     "prebuild": "npm run update",
-    "build": "node build.js"
+    "build": "node --no-warnings build.js"
   },
   "dependencies": {
     "@babel/core": "^7.2.2",
@@ -48,7 +48,6 @@
   },
   "devDependencies": {
     "babel-loader": "^8.0.5",
-    "terser-webpack-plugin": "^1.2.1",
     "webpack": "^4.29.0"
   }
 }
