@@ -5,7 +5,8 @@
 The official `@babel/standalone` has grown very large in recent releases,
 at almost 6 MB minified. For use cases like [`param.macro`][param-macro]'s
 online [**playground**][playground] where only a subset of transforms is
-needed, that size isn't ideal.
+needed, that size isn't ideal. `@citycide/babel-standalone` is reduced to
+about 1.73 MB minified.
 
 This project is based on the effort by @joncasey on [`my-babel-standalone`][my-babel-standalone].
 
