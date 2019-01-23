@@ -1,8 +1,56 @@
-# my-babel-standalone
+# @citycide/babel-standalone &middot; [![Version](https://flat.badgen.net/npm/v/@citycide/babel-standalone)](https://www.npmjs.com/package/@citycide/babel-standalone) [![License](https://flat.badgen.net/npm/license/@citycide/babel-standalone)](https://www.npmjs.com/package/@citycide/babel-standalone) [![JavaScript Standard Style](https://flat.badgen.net/badge/code%20style/standard/green)](https://standardjs.com)
 
-This standalone build uses [@babel/preset-env](https://github.com/babel/babel/tree/master/packages/babel-preset-env), [@babel/polyfill](https://github.com/babel/babel/tree/master/packages/babel-polyfill), and [whatwg-fetch](https://github.com/github/fetch) to create an experience that mirrors modern browsers. It does not include presets for flow, react, and typescript.
+> A smaller customized version of [`@babel/standalone`][babel-standalone].
 
-* [@babel/standalone](https://github.com/babel/babel/tree/master/packages/babel-standalone) = 5-6 mb minified
-* [my-babel-standalone](https://github.com/joncasey/my-babel-standalone) = 1.5 mb minified
+The official `@babel/standalone` has grown very large in recent releases,
+at almost 6 MB minified. For use cases like [`param.macro`][param-macro]'s
+online [**playground**][playground] where only a subset of transforms is
+needed, that size isn't ideal.
 
-Currently, it's being used in the latest builds of [modern-hta](https://github.com/joncasey/modern-hta).
+This project is based on the effort by @joncasey on [`my-babel-standalone`][my-babel-standalone].
+
+## usage
+
+You can use the minified source directly on a page using [unpkg][unpkg]:
+
+```html
+<script src="https://unpkg.com/@citycide/babel-standalone"></script>
+```
+
+or by installing locally (i.e. for bundling):
+
+```console
+# using yarn
+yarn add @citycide/babel-standalone
+
+# using npm
+npm i @citycide/babel-standalone
+```
+
+## development
+
+1. Clone the repo: `git clone https://github.com/citycide/babel-standalone.git`
+2. Move into the new directory: `cd babel-standalone`
+3. Install dependencies: `yarn` or `npm install`
+4. Build from source: `yarn build` or `npm run build`
+
+Any plugins needed in the final bundle should be added as dependencies, where
+the update script will pull them from automatically. This update script is run
+before every build or can be manually run with `yarn update` or `npm run update`.
+
+## see also
+
+* [`param.macro`][param-macro] &ndash; a [babel macro][babel-plugin-macros] for compile-time partial application in JavaScript
+* [`@babel/standalone`][babel-standalone] &ndash; the official standalone Babel package
+* [`my-babel-standalone`][my-babel-standalone] &ndash; another minimal version by @joncasey
+
+## license
+
+MIT © [Bo Lingen / citycide](https://github.com/citycide)
+Based on code also under MIT © @joncasey
+
+[babel-standalone]: https://github.com/babel/babel/tree/master/packages/babel-standalone
+[my-babel-standalone]: https://github.com/joncasey/my-babel-standalone
+[unpkg]: https://unpkg.com
+[param-macro]: https://github.com/citycide/param.macro
+[playground]: https://citycide.github.io/param.macro

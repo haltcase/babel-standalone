@@ -1,22 +1,23 @@
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+'use strict'
+
 const webpack = require('webpack')
+const Terser = require('terser-webpack-plugin')
+
 const webpackConfig = {
   mode: 'production',
   module: {
-    rules: [
-      {
-        test: /\.js$/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            babelrc: false,
-            presets: [
-              '@babel/preset-env'
-            ]
-          }
+    rules: [{
+      test: /\.js$/,
+      use: {
+        loader: 'babel-loader',
+        options: {
+          babelrc: false,
+          presets: [
+            '@babel/preset-env'
+          ]
         }
       }
-    ]
+    }]
   },
   node: {
     fs: 'empty'
@@ -24,13 +25,7 @@ const webpackConfig = {
   optimization: {
     minimize: true,
     minimizer: [
-      new UglifyJsPlugin({
-        uglifyOptions: {
-          output: {
-            ascii_only: true
-          }
-        }
-      })
+      new Terser()
     ]
   },
   output: {
@@ -39,28 +34,30 @@ const webpackConfig = {
   }
 }
 
-const pack = (config = webpackConfig) => new Promise((resolve, reject) => {
+const main = config => new Promise((resolve, reject) => {
   webpack(config, (err, stats) => err ? reject(err) : resolve(stats))
 })
 
-const build = async (src, dst) => {
+const build = async (src, dest) => {
+  console.log(`building from ${src}...`)
   const config = { ...webpackConfig, entry: `./src/${src}` }
-  config.output.filename = dst
-  if (dst.indexOf('.min.') === -1) {
+  config.output.filename = dest
+
+  if (!dest.includes('.min.')) {
     config.mode = 'development'
     delete config.optimization
   }
+
   try {
-    console.log(`pack( ${src}, ${dst} )`)
-    const stats = await pack(config)
+    console.log(`outputting ${dest}...`)
+    const stats = await main(config)
     console.log(stats.toJson('minimal'))
-  }
-  catch (e) {
+  } catch (e) {
     console.error(e)
   }
 }
 
-;(async () => {
-  await build('index.js', 'babel.js')
-  await build('index.js', 'babel.min.js')
-})()
+Promise.all([
+  build('index.js', 'babel.js'),
+  build('index.js', 'babel.min.js')
+]).then(() => console.log('bundling complete'))
