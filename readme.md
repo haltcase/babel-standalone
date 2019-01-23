@@ -53,4 +53,5 @@ Based on code also under MIT © @joncasey
 [my-babel-standalone]: https://github.com/joncasey/my-babel-standalone
 [unpkg]: https://unpkg.com
 [param-macro]: https://github.com/citycide/param.macro
+[babel-plugin-macros]: https://github.com/kentcdodds/babel-plugin-macros
 [playground]: https://citycide.github.io/param.macro
