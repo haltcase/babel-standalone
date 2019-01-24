@@ -54,6 +54,7 @@ and make this package's version match it.
 ## license
 
 MIT © [Bo Lingen / citycide](https://github.com/citycide)
+
 Based on code also under MIT © [**@joncasey**](https://github.com/joncasey)
 
 [babel-standalone]: https://github.com/babel/babel/tree/master/packages/babel-standalone
