@@ -7,5 +7,8 @@ package-lock.json
 .idea
 .vscode
 
+# built files
+/src/index.js
 /dist
+
 /node_modules
