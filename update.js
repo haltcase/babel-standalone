@@ -1,9 +1,11 @@
 'use strict'
 
-const { readdir, writeFile } = require('fs').promises
+const { readdir, readFile, writeFile } = require('fs').promises
 const { get } = require('https')
 
 const { dependencies } = require('./package.json')
+
+const envVersion = dependencies['@babel/preset-env']
 
 const pluginRegex = /@babel\/plugin-/
 const presetRegex = /@babel\/preset-/
@@ -89,7 +91,7 @@ const unpkg = async packageSpec => {
 }
 
 const main = async () => {
-  const env = await unpkg('@babel/preset-env')
+  const env = await unpkg(`@babel/preset-env@${envVersion}`)
   const presets = filterRegex(dependencies, presetRegex)
   const plugins = [
     ...await getSyntaxPlugins(),
@@ -107,6 +109,20 @@ const main = async () => {
   return env.version
 }
 
+const onUpdate = async version => {
+  const pkgJson = JSON.parse(await readFile('./package.json'))
+
+  let message = 'Built with'
+
+  if (version != pkgJson.version) {
+    pkgJson.version = version
+    await writeFile(JSON.stringify(pkgJson, null, 2))
+    message = 'Updated to'
+  }
+
+  console.log(`${message} @babel/env v${version}`)
+}
+
 main()
-  .then(version => console.log(`Updated to @babel/env v${version}`))
+  .then(onUpdate)
   .catch(e => console.error(e))
