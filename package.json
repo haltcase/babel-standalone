@@ -21,7 +21,8 @@
   "scripts": {
     "update": "node --no-warnings update.js",
     "prebuild": "npm run update",
-    "build": "node --no-warnings build.js"
+    "build": "node --no-warnings build.js",
+    "prepare": "npm run build"
   },
   "dependencies": {
     "@babel/core": "^7.2.2",
